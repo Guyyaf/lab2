@@ -1,11 +1,8 @@
-myshell: myshell.o LineParser.o
-	gcc -m32 -g -Wall -o myshell myshell.o LineParser.o
+myshell: myshell.o 
+	gcc -m32 -g -Wall -o myshell myshell.o 
 
-myshell.o: myshell.c  
-	gcc -g -Wall -m32 -c -o myshell.o myshell.c 
-
-LineParser.o: LineParser.c  LineParser.h
-	gcc -g -Wall -m32 -c -o LineParser.o LineParser.c
+myshell.o: myshell.c LineParser.c LineParser.h
+	gcc -g -Wall -m32 -c -o myshell.o myshell.c
 
 .PHONY: clean 
 

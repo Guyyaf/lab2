@@ -1,4 +1,3 @@
-#include "LineParser.h"
 #include "LineParser.c"
 #include <limits.h>
 #include <unistd.h>
@@ -7,13 +6,13 @@
 
 void execute(cmdLine *pCmdLine) {
     int pid;
-    if (pid = fork() == 0) { 
+    if ((pid = fork()) == 0) { 
         if (execv(pCmdLine->arguments[0], pCmdLine->arguments) == -1) {
             perror("execvp failed");
             exit(1);
         }
     } else { 
-        waitforchild(pid);
+        waitpid(pid, NULL, 0); //coppied line from "chat-gtp"
     }
 }
 
