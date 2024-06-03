@@ -27,7 +27,7 @@ void cwdPrompt()
 {
     char cwdBuffer[PATH_MAX];
     getcwd(cwdBuffer, PATH_MAX);
-    printf("Current working directory is - %s\n", cwdBuffer);
+    printf("%s ", cwdBuffer);
 }
 
 void alarmFunc(int pid)
@@ -105,8 +105,9 @@ void execute(cmdLine *pCmdLine)
                 exit(1);
             }
         }
-        else
-        {
+    }
+    else
+     {
             if (debug)
             {
                 fprintf(stderr, "PID: %d\n", pid);
@@ -114,11 +115,12 @@ void execute(cmdLine *pCmdLine)
             }
             if (pCmdLine->blocking == 1)
             {
-                waitpid(pid, NULL, 0);
+                int status;
+                waitpid(pid, &status, 0);
             }
         }
     }
-}
+
 
 int main(int argc, char *argv[])
 {
