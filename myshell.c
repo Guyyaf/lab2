@@ -81,23 +81,24 @@ void execute(cmdLine *pCmdLine)
         {
             if (pCmdLine->inputRedirect != NULL)
             {
+                close(STDIN_FILENO);
                 int newInputFile = open(pCmdLine->inputRedirect, O_RDONLY);
-                if (dup2(newInputFile, 0) == -1)
+                if (newInputFile == -1)
                 {
                     perror("failed switching stdin");
                     exit(1);
                 }
-                close(newInputFile);
             }
             if (pCmdLine->outputRedirect != NULL)
             {
-                int newOutputFile = open(pCmdLine->outputRedirect, O_WRONLY);
-                if (dup2(newOutputFile, 1) == -1)
+                close(STDOUT_FILENO);
+                int outputFile = open(pCmdLine->outputRedirect, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+                if (outputFile == -1)
                 {
                     perror("failed switching stdout");
                     _exit(1);
                 }
-                close(newOutputFile);
+
             }
             if (execvp(pCmdLine->arguments[0], pCmdLine->arguments) == -1)
             {
