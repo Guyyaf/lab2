@@ -1,7 +1,7 @@
 all: myshell looper 
 
 myshell: myshell.o LineParser.o
-	gcc -g -Wall -m32 -o shell myshell.o LineParser.o
+	gcc -g -Wall -m32 -o myshell myshell.o LineParser.o
     
 myshell.o: myshell.c LineParser.h
 	gcc -g -Wall -m32 -c -o myshell.o myshell.c
